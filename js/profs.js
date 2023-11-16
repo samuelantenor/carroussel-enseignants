@@ -37,14 +37,21 @@
     }
 
     function toggleArticleContent(index) {
+        const allArticles = document.querySelectorAll('.article');
         const allArticleContents = document.querySelectorAll('.article-content');
-        const targetArticleContent = document.querySelector(`.article-content[data-index="${index}"]`);
-        allArticleContents.forEach(content => {
-            content.style.display = 'none'; // Hide all article contents
-            content.parentElement.classList.remove('expanded'); // Remove expanded class from parent
+        const clickedArticleContent = document.querySelector(`.article-content[data-index="${index}"]`);
+    
+        // First, remove 'expanded' class from all articles and hide their content
+        allArticles.forEach(article => {
+            article.classList.remove('expanded');
         });
-        targetArticleContent.style.display = 'block'; // Show the target article content
-        targetArticleContent.parentElement.classList.add('expanded'); // Add expanded class to parent
+        allArticleContents.forEach(content => {
+            content.style.display = 'none';
+        });
+    
+        // Then, add 'expanded' class to the clicked article and show its content
+        clickedArticleContent.style.display = 'block';
+        clickedArticleContent.closest('.article').classList.add('expanded');
     }
     
     function updateArticleDisplay() {
@@ -63,23 +70,39 @@
     
 
     function createArticleElement(article, imgSrc, index) {
-        const articleElement = document.createElement("div");
-        articleElement.className = "article";
-        articleElement.innerHTML = `
-            <div class="article-content" data-index="${index}" style="display: none;">
-                <h4>${article.title.rendered}</h4>
-                <p>${article.content.rendered}</p>
-            </div>
-            <img src="${imgSrc}" alt="${article.title.rendered}" class="article-image" data-index="${index}" />
-        `;
+    const articleElement = document.createElement("div");
+    articleElement.className = "article";
+    articleElement.dataset.index = index; // Add a data-index attribute for identification
 
-        const imgElement = articleElement.querySelector('.article-image');
-        imgElement.addEventListener('click', function () {
-            toggleArticleContent(index);
-        });
+    articleElement.innerHTML = `
+        <div class="article-content" data-index="${index}">
+            <h4>${article.title.rendered}</h4>
+            <p>${article.excerpt.rendered}</p> <!-- Assuming you want to show excerpt -->
+        </div>
+        <img src="${imgSrc}" alt="${article.title.rendered}" class="article-image" data-index="${index}" />
+    `;
 
-        return articleElement;
-    }
+    // This event listener handles the article click
+    articleElement.addEventListener('click', function() {
+        // Remove any previously cloned expanded articles
+        const existingExpanded = document.querySelector('.article.expanded');
+        if (existingExpanded) {
+            existingExpanded.remove();
+        }
+
+        // Clone the clicked article
+        const clone = this.cloneNode(true);
+        clone.classList.add('expanded'); // Add the 'expanded' class to the clone
+
+        // Append the clone to the carousel container or another specified container
+        divImages.appendChild(clone);
+
+      
+    });
+
+    return articleElement;
+}
+    
 
     function getFeaturedImageSrc(article) {
         let featuredImgSrc = "";
