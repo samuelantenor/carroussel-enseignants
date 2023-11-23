@@ -56,13 +56,15 @@
     
     function updateArticleDisplay() {
         divImages.innerHTML = ""; // Clear the container first.
-    
-        // Show only 4 articles at a time
-        for (let i = 0; i < 4; i++) {
+
+        let isMobileView = window.innerWidth <= 600;
+        let numberOfArticlesToShow = isMobileView ? 1 : 4; // Show 1 article on mobile, 4 otherwise
+
+        for (let i = 0; i < numberOfArticlesToShow; i++) {
             let displayIndex = (currentIndex + i) % articlesData.length;
             const article = articlesData[displayIndex];
             let featuredImgSrc = getFeaturedImageSrc(article);
-    
+
             let articleElement = createArticleElement(article, featuredImgSrc, displayIndex);
             divImages.appendChild(articleElement);
         }
@@ -70,38 +72,42 @@
     
 
     function createArticleElement(article, imgSrc, index) {
-    const articleElement = document.createElement("div");
-    articleElement.className = "article";
-    articleElement.dataset.index = index; // Add a data-index attribute for identification
+        const articleElement = document.createElement("div");
+        articleElement.className = "article";
+        articleElement.dataset.index = index; // Add a data-index attribute for identification
+    
 
-    articleElement.innerHTML = `
-        <div class="article-content" data-index="${index}">
-            <h4>${article.title.rendered}</h4>
-            <p>${article.excerpt.rendered}</p> <!-- Assuming you want to show excerpt -->
-        </div>
-        <img src="${imgSrc}" alt="${article.title.rendered}" class="article-image" data-index="${index}" />
-    `;
 
-    // This event listener handles the article click
-    articleElement.addEventListener('click', function() {
-        // Remove any previously cloned expanded articles
-        const existingExpanded = document.querySelector('.article.expanded');
-        if (existingExpanded) {
-            existingExpanded.remove();
+
+        articleElement.innerHTML = `
+            <div class="article-content" data-index="${index}">
+                <h4>${article.title.rendered}</h4>
+                <p>${article.excerpt.rendered}</p> <!-- Assuming you want to show excerpt -->
+            </div>
+            <img src="${imgSrc}" alt="${article.title.rendered}" class="article-image" data-index="${index}" />
+        `;
+    
+        // Add event listener only if the screen width is greater than 600px
+        if (window.innerWidth > 600) {
+            articleElement.addEventListener('click', function() {
+                // Remove any previously cloned expanded articles
+                const existingExpanded = document.querySelector('.article.expanded');
+                if (existingExpanded) {
+                    existingExpanded.remove();
+                }
+    
+                // Clone the clicked article
+                const clone = this.cloneNode(true);
+                clone.classList.add('expanded'); // Add the 'expanded' class to the clone
+    
+                // Append the clone to the carousel container or another specified container
+                divImages.appendChild(clone);
+            });
         }
-
-        // Clone the clicked article
-        const clone = this.cloneNode(true);
-        clone.classList.add('expanded'); // Add the 'expanded' class to the clone
-
-        // Append the clone to the carousel container or another specified container
-        divImages.appendChild(clone);
-
-      
-    });
-
-    return articleElement;
-}
+    
+        return articleElement;
+    }
+    
     
 
     function getFeaturedImageSrc(article) {
@@ -115,18 +121,25 @@
         return featuredImgSrc;
     }
 
-    // Navigation buttons
     const leftButton = document.querySelector('.btn-prev');
     const rightButton = document.querySelector('.btn-next');
 
     leftButton.addEventListener('click', function () {
-        currentIndex = (currentIndex - 4 + articlesData.length) % articlesData.length;
-    updateArticleDisplay();
+        if (window.innerWidth <= 600) {
+            currentIndex = (currentIndex - 1 + articlesData.length) % articlesData.length;
+        } else {
+            currentIndex = (currentIndex - 4 + articlesData.length) % articlesData.length;
+        }
+        updateArticleDisplay();
     });
 
     rightButton.addEventListener('click', function () {
-        currentIndex = (currentIndex + 4) % articlesData.length;
-    updateArticleDisplay();
+        if (window.innerWidth <= 600) {
+            currentIndex = (currentIndex + 1) % articlesData.length;
+        } else {
+            currentIndex = (currentIndex + 4) % articlesData.length;
+        }
+        updateArticleDisplay();
     });
 
 })();

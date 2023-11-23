@@ -38,14 +38,13 @@ function creation_carroussel() {
 
     $contenu = '
     <section class="section-profs">
-        <button class="btn-prev"><span class="material-icons">chevron_left</span></button>
-        <div class="carroussel">
-        
-            <div class="images">
-                ' . $images_html . '
+        <div class="carroussel-container">
+            <button class="btn-prev"><span class="material-icons">chevron_left</span></button>
+            <div class="carroussel">
+                <div class="images">' . $images_html . '</div>
             </div>
+            <button class="btn-next"><span class="material-icons">chevron_right</span></button>
         </div>
-        <button class="btn-next"><span class="material-icons">chevron_right</span></button>
     </section>';
 
     return $contenu;
