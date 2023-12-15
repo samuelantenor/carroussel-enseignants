@@ -1,1 +1,222 @@
-/*# sourceMappingURL=style.css.map */
+.section-profs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #030027;
+  padding: 20px 0;
+  position: relative;
+  width: 100%;
+  height: 780px;
+}
+.section-profs .carroussel-container {
+  display: flex; /* Use flexbox */
+  justify-content: space-between; /* Space out the arrows and carousel */
+  align-items: center; /* Vertically align the items */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+}
+.section-profs button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+.section-profs button .material-icons {
+  font-size: 80px;
+  color: #C4E7D4; /* Original color */
+  transition: color 0.3s ease; /* Smooth transition for color change */
+}
+.section-profs button:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Slight background on hover */
+}
+.section-profs button:hover .material-icons {
+  color: #ffffff; /* Change icon color on hover */
+}
+.section-profs .carroussel {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 10px;
+}
+.section-profs .carroussel .images {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.section-profs .carroussel .images .article {
+  width: calc(80% - 0px);
+  margin-right: 5px;
+  padding: 15px;
+  background-color: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.section-profs .carroussel .images .article.expanded {
+  position: absolute;
+  top: -5%;
+  left: 0;
+  width: 90%;
+  height: 10%;
+  z-index: 100;
+  margin: 0;
+  padding: 50px;
+  background-color: none;
+  overflow-y: none;
+  justify-content: start;
+}
+.section-profs .carroussel .images .article.expanded img {
+  display: none;
+}
+.section-profs .carroussel .images .article.expanded .article-content {
+  color: white;
+  width: 80%;
+  position: absolute;
+  background-color: #000000;
+  border-radius: 20px;
+  padding: 10px;
+}
+.section-profs .carroussel .images .article img {
+  max-width: 100%;
+  height: auto;
+  opacity: 0.8;
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Add transform to the transition */
+}
+.section-profs .carroussel .images .article img:hover, .section-profs .carroussel .images .article img:focus {
+  opacity: 1;
+  transform: scale(1.05); /* Slightly scale up the image on hover */
+}
+
+.enseignants h1 {
+  margin-left: 40px;
+  color: #C4E7D4;
+}
+
+.article-content {
+  display: none;
+}
+
+.article.expanded .article-content {
+  display: block;
+}
+.article.expanded .article-content h4 {
+  padding-left: 50px;
+  color: #C4E7D4;
+}
+.article.expanded .article-content p {
+  color: #ffffff;
+}
+
+/* ------------------------------ Media Query for tablets ---------------------------------------------- */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .enseignants h1 {
+    font-size: 2.5em;
+  }
+  .section-profs {
+    /* Adjust padding and height for tablet view if necessary */
+    padding: 15px 0;
+    height: 700px;
+  }
+  .carroussel-container {
+    /* Tablet-specific adjustments if needed */
+  }
+  .carroussel .images .article {
+    /* Making the image larger for tablet view */
+  }
+  .carroussel .images .article img {
+    width: 90%; /* Slightly larger image */
+    height: auto;
+  }
+  .carroussel .images .article .article-content {
+    /* Adjust width, padding, font-size for tablet view if needed */
+    width: 90%;
+    padding: 20px;
+  }
+  .carroussel .images .article .article-content h4 {
+    font-size: 1.5em;
+  }
+  .carroussel .images .article .article-content p {
+    font-size: 0.8em;
+  }
+}
+/* ------------------------------ Media Query for phones ---------------------------------------------- */
+@media (max-width: 600px) {
+  .section-profs {
+    padding: 10px 0; /* Adjust padding for mobile view */
+    height: 600px; /* Adjust height for mobile view */
+  }
+  .section-profs .carroussel-container {
+    flex-direction: row; /* Keep arrows on the sides */
+    justify-content: space-between; /* Space out the arrows and carousel */
+  }
+  .section-profs button .material-icons {
+    font-size: 40px; /* Reduce the size of arrow icons */
+  }
+  .section-profs .carroussel {
+    margin: 5px; /* Adjust margin for mobile view */
+  }
+  .section-profs .carroussel .images {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row; /* Keep a row layout for the articles */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    align-items: center; /* Center-align the articles */
+  }
+  .section-profs .carroussel .images .article {
+    width: 100%; /* Full width for each article */
+    margin-right: 5px; /* Adjust right margin */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .section-profs .carroussel .images .article img {
+    width: 80%; /* Adjust image width */
+    height: auto;
+    opacity: 1; /* Adjust opacity */
+  }
+  .section-profs .carroussel .images .article .article-content {
+    display: block; /* Always display article content */
+    position: relative; /* Adjust position */
+    width: 80%; /* Adjust width */
+    padding: 15px; /* Adjust padding */
+    color: #ffffff; /* Text color */
+  }
+  .section-profs .carroussel .images .article .article-content h4 {
+    font-size: 1.2em; /* Increase font size */
+    color: #C4E7D4;
+  }
+  .section-profs .carroussel .images .article .article-content p {
+    font-size: 0.5em;
+  }
+  .section-profs .carroussel .images h4 {
+    font-size: 40px;
+    margin-bottom: 10px;
+    padding-left: 50px;
+    color: #86e6b1;
+  }
+  .section-profs .carroussel .images p {
+    font-size: 16px;
+    color: #ffffff;
+  }
+  .section-profs .carroussel .images img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+  }
+  .section-profs .carroussel .images img.active {
+    opacity: 1;
+  }
+  .enseignants h1 {
+    margin: 0; /* Center the title */
+    text-align: center; /* Center the text */
+    font-size: 2em; /* Increase the font size */
+    color: #C4E7D4;
+    padding-top: 100px;
+  }
+}/*# sourceMappingURL=style.css.map */

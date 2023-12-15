@@ -1,0 +1,286 @@
+.section-profs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #030027;
+    padding: 20px 0;
+    position: relative; 
+    width: 100%; // Full width of the container
+    height: 780px; // Height of the carousel
+  
+    .carroussel-container {
+      display: flex; /* Use flexbox */
+      justify-content: space-between; /* Space out the arrows and carousel */
+      align-items: center; /* Vertically align the items */
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+    }
+  
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  
+      .material-icons {
+        font-size: 80px;
+        color: #C4E7D4; /* Original color */
+        transition: color 0.3s ease; /* Smooth transition for color change */
+        
+        
+      }
+  
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.2); /* Slight background on hover */
+        .material-icons {
+          color: #ffffff; /* Change icon color on hover */
+          
+        }
+      }
+    }
+    
+    .carroussel {
+      display: flex;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      margin: 10px;
+  
+      .images {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between; // Ensure articles are spaced evenly
+        
+        .article {
+          width: calc(80% - 0px); // Original width for non-expanded articles
+          margin-right: 5px;
+          padding: 15px;
+          background-color:none; // Assuming a white background for article content
+          
+          transition: all 0.3s ease; // Smooth transition for expanding and shrinking
+          cursor: pointer;
+         
+          
+  
+          &.expanded {
+            position: absolute; // Position over the carousel
+            top: -5%;
+            left: 0;
+            width: 90%; // Expand to full width
+            height: 10%; // Expand to full height
+            z-index: 100; // Ensure it's above other content
+            margin: 0; // Reset margins when expanded
+            padding: 50px; // Add padding for internal spacing
+            background-color: none; // Slightly transparent white background
+            overflow-y: none; // Enable scrolling for overflow content
+            justify-content: start; // Align content to the top
+         
+            
+  
+            img{
+  
+              display: none;
+            }
+  
+            .article-content{
+              color: white;
+              width: 80%;
+              position: absolute;
+              //top: - 1%;
+              background-color: #000000;
+            border-radius: 20px;
+            padding: 10px;
+              
+            }
+          }
+  
+          img {
+            max-width:100%;
+            height: auto;
+            opacity: 0.8;
+            transition: transform 0.3s ease, opacity 0.3s ease; /* Add transform to the transition */
+  
+            &:hover, &:focus {
+              opacity: 1;
+              transform: scale(1.05); /* Slightly scale up the image on hover */
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  .enseignants {
+    h1 {
+      margin-left: 40px;
+      color: #C4E7D4;
+    }
+  }
+  
+  // Additional styles for article content
+  .article-content {
+    display: none; // Hide by default  
+    
+  }
+  .article-image{
+  
+    
+  
+  }
+  .article.expanded .article-content {
+    display: block; // Show when article is expanded
+    h4{
+      padding-left: 50px;
+      color: #C4E7D4;
+  
+    }
+    
+    p {
+      color: #ffffff; // Text color for the expanded article
+    }
+  }
+  
+  /* ------------------------------ Media Query for tablets ---------------------------------------------- */
+  @media (min-width: 601px) and (max-width: 1024px) {
+    .enseignants{
+      h1{
+        font-size: 2.5em;
+      }
+  
+    }
+    .section-profs {
+        /* Adjust padding and height for tablet view if necessary */
+        padding: 15px 0;
+        height: 700px;
+        
+    }
+  
+    .carroussel-container {
+        /* Tablet-specific adjustments if needed */
+    }
+  
+    .carroussel .images .article {
+        /* Making the image larger for tablet view */
+        img {
+            width: 90%; /* Slightly larger image */
+            height: auto;
+        }
+  
+        .article-content {
+            /* Adjust width, padding, font-size for tablet view if needed */
+            width: 90%;
+            padding: 20px;
+            
+            
+            h4 {
+                font-size: 1.5em;
+            }
+            p {
+                font-size: 0.8em;
+            }
+        }
+    }
+  }
+  
+  /* ------------------------------ Media Query for phones ---------------------------------------------- */
+  
+  @media (max-width: 600px) {
+    .section-profs {
+      padding: 10px 0; /* Adjust padding for mobile view */
+      height: 600px; /* Adjust height for mobile view */
+  
+  
+      .carroussel-container {
+        flex-direction: row; /* Keep arrows on the sides */
+        justify-content: space-between; /* Space out the arrows and carousel */
+      }
+  
+      button {
+        .material-icons {
+          font-size: 40px; /* Reduce the size of arrow icons */
+        }
+      }
+  
+      .carroussel {
+        margin: 5px; /* Adjust margin for mobile view */
+  
+        .images {
+          flex-grow: 1;
+          display: flex;
+          flex-direction: row; /* Keep a row layout for the articles */
+          overflow-x: auto; /* Enable horizontal scrolling */
+          align-items: center; /* Center-align the articles */
+  
+          .article {
+            width: 100%; /* Full width for each article */
+            margin-right: 5px; /* Adjust right margin */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+  
+            
+            img {
+              width: 80%; /* Adjust image width */
+              height: auto;
+              opacity: 1; /* Adjust opacity */
+            }
+  
+            .article-content {
+              display: block; /* Always display article content */
+              position: relative; /* Adjust position */
+              width: 80%; /* Adjust width */
+              padding: 15px; /* Adjust padding */
+              color: #ffffff; /* Text color */
+              
+  
+              h4{
+                font-size: 1.2em; /* Increase font size */
+                color: #C4E7D4;
+              }
+              p{
+                font-size: 0.5em;
+              }
+            }
+          }
+  
+          h4 {
+            font-size: 40px;
+            margin-bottom: 10px;
+            padding-left: 50px;
+            color: #86e6b1;
+          }
+  
+          p {
+            font-size: 16px;
+            color: #ffffff;
+          }
+  
+          img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+          }
+  
+          img.active {
+            opacity: 1;
+          }
+        }
+      }
+    }
+    
+  
+  .enseignants h1 {
+      margin: 0; /* Center the title */
+      text-align: center; /* Center the text */
+      font-size: 2em; /* Increase the font size */
+      color: #C4E7D4;
+      padding-top: 100px;
+  }
+  
+  }

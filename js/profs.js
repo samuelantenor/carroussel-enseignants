@@ -1,5 +1,6 @@
 (function () {
     let url = "http://localhost:8080/5w5/wp-json/wp/v2/posts?categories=2&per_page=30";
+
     let titre;
     let divImages = document.querySelector('.images');
     let currentIndex = 0;
@@ -40,25 +41,23 @@
         const allArticles = document.querySelectorAll('.article');
         const allArticleContents = document.querySelectorAll('.article-content');
         const clickedArticleContent = document.querySelector(`.article-content[data-index="${index}"]`);
-    
-        // First, remove 'expanded' class from all articles and hide their content
+
         allArticles.forEach(article => {
             article.classList.remove('expanded');
         });
         allArticleContents.forEach(content => {
             content.style.display = 'none';
         });
-    
-        // Then, add 'expanded' class to the clicked article and show its content
+
         clickedArticleContent.style.display = 'block';
         clickedArticleContent.closest('.article').classList.add('expanded');
     }
-    
+
     function updateArticleDisplay() {
-        divImages.innerHTML = ""; // Clear the container first.
+        divImages.innerHTML = ""; 
 
         let isMobileView = window.innerWidth <= 600;
-        let numberOfArticlesToShow = isMobileView ? 1 : 4; // Show 1 article on mobile, 4 otherwise
+        let numberOfArticlesToShow = isMobileView ? 1 : 4;
 
         for (let i = 0; i < numberOfArticlesToShow; i++) {
             let displayIndex = (currentIndex + i) % articlesData.length;
@@ -69,46 +68,36 @@
             divImages.appendChild(articleElement);
         }
     }
-    
 
     function createArticleElement(article, imgSrc, index) {
         const articleElement = document.createElement("div");
         articleElement.className = "article";
-        articleElement.dataset.index = index; // Add a data-index attribute for identification
-    
-
-
+        articleElement.dataset.index = index;
 
         articleElement.innerHTML = `
             <div class="article-content" data-index="${index}">
                 <h4>${article.title.rendered}</h4>
-                <p>${article.excerpt.rendered}</p> <!-- Assuming you want to show excerpt -->
+                <p>${article.excerpt.rendered}</p>
             </div>
             <img src="${imgSrc}" alt="${article.title.rendered}" class="article-image" data-index="${index}" />
         `;
-    
-        // Add event listener only if the screen width is greater than 600px
+
         if (window.innerWidth > 600) {
             articleElement.addEventListener('click', function() {
-                // Remove any previously cloned expanded articles
                 const existingExpanded = document.querySelector('.article.expanded');
                 if (existingExpanded) {
                     existingExpanded.remove();
                 }
-    
-                // Clone the clicked article
+
                 const clone = this.cloneNode(true);
-                clone.classList.add('expanded'); // Add the 'expanded' class to the clone
-    
-                // Append the clone to the carousel container or another specified container
+                clone.classList.add('expanded');
+
                 divImages.appendChild(clone);
             });
         }
-    
+
         return articleElement;
     }
-    
-    
 
     function getFeaturedImageSrc(article) {
         let featuredImgSrc = "";
@@ -139,6 +128,10 @@
         } else {
             currentIndex = (currentIndex + 4) % articlesData.length;
         }
+        updateArticleDisplay();
+    });
+
+    window.addEventListener('resize', function() {
         updateArticleDisplay();
     });
 
