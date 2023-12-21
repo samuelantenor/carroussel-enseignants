@@ -6,7 +6,6 @@
   padding: 20px 0;
   position: relative;
   width: 100%;
-  height: 780px;
 }
 .section-profs .carroussel-container {
   display: flex; /* Use flexbox */
@@ -118,7 +117,6 @@
   .section-profs {
     /* Adjust padding and height for tablet view if necessary */
     padding: 15px 0;
-    height: 700px;
   }
   .carroussel-container {
     /* Tablet-specific adjustments if needed */
